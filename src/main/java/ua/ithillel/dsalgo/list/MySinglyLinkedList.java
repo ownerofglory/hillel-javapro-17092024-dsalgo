@@ -19,6 +19,9 @@ public class MySinglyLinkedList<T> implements MyList<T> {
     @Override
     public T get(int index) {
         // check size
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
 
         int curIdx = 0;
 
@@ -41,7 +44,29 @@ public class MySinglyLinkedList<T> implements MyList<T> {
     // a -> b       c -> d -> *
     @Override
     public T set(int index, T value) {
-        return null;
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        Node newNode = new Node(value);
+
+
+        Node curNode = head;
+        Node prevNode = curNode;
+
+        while (curNode != null) {
+            prevNode = curNode;
+
+            if (curNode.val == value) {
+                prevNode.next = newNode;
+                newNode = curNode.next;
+                curNode.next = null;
+                break;
+            }
+
+            curNode = curNode.next;
+        }
+        return value;
     }
 
     // head -> a -> *
@@ -89,6 +114,10 @@ public class MySinglyLinkedList<T> implements MyList<T> {
     // c -> *
     @Override
     public T remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+
         T val = null;
 
         int curIdx = 0;

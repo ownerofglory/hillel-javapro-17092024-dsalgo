@@ -33,11 +33,17 @@ public class MyArrayList<T> implements MyList<T> {
 
     @Override
     public T get(int index) {
+        if (index < 0 || index >= this.size) {
+            throw new IndexOutOfBoundsException();
+        }
         return this.array[index];
     }
 
     @Override
     public T set(int index, T value) {
+        if (index < 0 || index >= this.size) {
+            throw new IndexOutOfBoundsException();
+        }
         return this.array[index] = value;
     }
 
@@ -52,7 +58,11 @@ public class MyArrayList<T> implements MyList<T> {
     // 1 3 9 4 5 0 ; size--
     @Override
     public T remove(int index) {
-        T val = this.array[index] = null;
+        if (index < 0 || index >= this.size) {
+            throw new IndexOutOfBoundsException();
+        }
+        T val = this.array[index];
+        this.array[index] = null;
 
         System.arraycopy(this.array, index + 1, this.array, index, size - index - 1);
         size--;
