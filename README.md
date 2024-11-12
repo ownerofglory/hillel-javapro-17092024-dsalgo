@@ -5,3 +5,9 @@
 ## Data Structures covered
 - Dynamic array list
 - Singly linked list
+- Hash map
+- Tree map
+
+## Other topics
+- Iterator pattern
+- Strategy pattern
