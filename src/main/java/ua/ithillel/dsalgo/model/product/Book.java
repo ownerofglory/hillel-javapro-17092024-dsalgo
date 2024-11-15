@@ -11,6 +11,13 @@ public class Book {
     private String category;
     private String type;
 
+    public Book() {
+    }
+
+    public Book(String name) {
+        this.name = name;
+    }
+
     private Book(Builder builder) {
         this.id = builder.id;
         this.name = builder.name;
@@ -51,6 +58,34 @@ public class Book {
 
     public static Builder newBuilder() {
         return new Builder();
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public static class Builder {

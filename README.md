@@ -11,3 +11,4 @@
 ## Other topics
 - Iterator pattern
 - Strategy pattern
+- Stream API

@@ -13,4 +13,5 @@ public class MiddleSchool extends School {
 
         return false;
     }
+
 }

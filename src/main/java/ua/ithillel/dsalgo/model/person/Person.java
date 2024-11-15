@@ -8,6 +8,10 @@ public class Person {
     private String lastName;
     private LocalDateTime dateOfBirth;
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public Person(String firstName, String lastName, LocalDateTime dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;

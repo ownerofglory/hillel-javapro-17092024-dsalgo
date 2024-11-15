@@ -14,9 +14,9 @@ public class Student extends Person implements Comparable<Student> {
         return gpa;
     }
 
-
-
-
+    public void setGpa(double gpa) {
+        this.gpa = gpa;
+    }
 
     @Override
     public int compareTo(Student other) {
