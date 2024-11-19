@@ -1,21 +1,9 @@
 package ua.ithillel.dsalgo;
 
-import ua.ithillel.dsalgo.list.MyArrayList;
-import ua.ithillel.dsalgo.list.MyList;
-import ua.ithillel.dsalgo.list.MySinglyLinkedList;
-import ua.ithillel.dsalgo.map.MyHashMap;
-import ua.ithillel.dsalgo.map.MyMap;
-import ua.ithillel.dsalgo.map.MyTreeMap;
-import ua.ithillel.dsalgo.model.func.Appender;
-import ua.ithillel.dsalgo.model.func.PersonStringConverter;
-import ua.ithillel.dsalgo.model.person.Employee;
-import ua.ithillel.dsalgo.model.person.Person;
+
 import ua.ithillel.dsalgo.model.person.Student;
-import ua.ithillel.dsalgo.model.product.Book;
-import ua.ithillel.dsalgo.model.school.ElementarySchool;
-import ua.ithillel.dsalgo.model.school.School;
-import ua.ithillel.dsalgo.model.school.University;
-import ua.ithillel.dsalgo.model.util.*;
+import ua.ithillel.dsalgo.util.ArithmeticUtil;
+import ua.ithillel.dsalgo.util.StringUtil;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -25,187 +13,306 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 
-
 public class Application {
 
-    private static int countSomething(Function<String, Integer> func, String s) {
-        return func.apply(s);
-    }
-
-    private static void printRandomNums(Supplier<Integer> supplier) {
-        for (int i = 0; i < 100; i++) {
-            System.out.println("Random number: " + supplier.get());
-        }
-    }
 
     public static void main(String[] args) {
-        Supplier<Double> supplier = new Supplier<Double>() {
-
-            @Override
-            public Double get() {
-                return Math.random() * 100;
-            }
-        };
+        Student alice = new Student("Alice", "Johnson", LocalDateTime.of(2000, 5, 15, 0, 0), 3.8);
+        Student bob = new Student("Bob", "Smith", LocalDateTime.of(2001, 8, 20, 0, 0), 3.6);
+        Student charlie = new Student("Charlie", "Brown", LocalDateTime.of(2002, 12, 10, 0, 0), 3.9);
+        Student diana = new Student("Diana", "Williams", LocalDateTime.of(1999, 2, 28, 0, 0), 3.7);
+        Student evan = new Student("Evan", "Davis", LocalDateTime.of(2003, 11, 5, 0, 0), 4.0);
 
 
-        Book book1 = new Book.Builder()
-                .setId("1")
-                .setName("Effective Java")
-                .setDescription("A comprehensive guide to best practices in Java")
-                .setAuthor("Joshua Bloch")
-                .setPublisher("Addison-Wesley")
-                .setCategory("Programming")
-                .setType("Technical")
-                .build();
-
-        Book book2 = new Book.Builder()
-                .setId("2")
-                .setName("Clean Code")
-                .setDescription("A Handbook of Agile Software Craftsmanship")
-                .setAuthor("Robert C. Martin")
-                .setPublisher("Prentice Hall")
-                .setCategory("Programming")
-                .setType("Technical")
-                .build();
-
-        Book book3 = new Book.Builder()
-                .setId("3")
-                .setName("Java: The Complete Reference")
-                .setDescription("A comprehensive reference to the Java programming language")
-                .setAuthor("Herbert Schildt")
-                .setPublisher("McGraw-Hill Education")
-                .setCategory("Programming")
-                .setType("Reference")
-                .build();
-
-        Book book4 = new Book.Builder()
-                .setId("4")
-                .setName("Introduction to Algorithms")
-                .setDescription("The standard text for algorithms and data structures")
-                .setAuthor("Thomas H. Cormen")
-                .setPublisher("MIT Press")
-                .setCategory("Computer Science")
-                .setType("Textbook")
-                .build();
-
-        Book book5 = new Book.Builder()
-                .setId("5")
-                .setName("Design Patterns: Elements of Reusable Object-Oriented Software")
-                .setDescription("A classic guide to design patterns in software engineering")
-                .setAuthor("Erich Gamma")
-                .setPublisher("Addison-Wesley")
-                .setCategory("Programming")
-                .setType("Technical")
-                .build();
-
-        Book book6 = new Book.Builder()
-                .setId("6")
-                .setName("Java Concurrency in Practice")
-                .setDescription("A deep dive into concurrency and multithreading in Java")
-                .setAuthor("Brian Goetz")
-                .setPublisher("Addison-Wesley")
-                .setCategory("Programming")
-                .setType("Technical")
-                .build();
-
-        Book book7 = new Book.Builder()
-                .setId("7")
-                .setName("Refactoring: Improving the Design of Existing Code")
-                .setDescription("A guide to refactoring techniques and best practices")
-                .setAuthor("Martin Fowler")
-                .setPublisher("Addison-Wesley")
-                .setCategory("Programming")
-                .setType("Technical")
-                .build();
-
-        Book book8 = new Book.Builder()
-                .setId("8")
-                .setName("Cracking the Coding Interview")
-                .setDescription("A guide to acing technical interviews with coding questions and solutions")
-                .setAuthor("Gayle Laakmann McDowell")
-                .setPublisher("CareerCup")
-                .setCategory("Interview Preparation")
-                .setType("Practical")
-                .build();
-
-        Book book9 = new Book.Builder()
-                .setId("9")
-                .setName("Head First Java")
-                .setDescription("An engaging introduction to Java programming for beginners")
-                .setAuthor("Kathy Sierra")
-                .setPublisher("O'Reilly Media")
-                .setCategory("Programming")
-                .setType("Educational")
-                .build();
-
-        Book book10 = new Book.Builder()
-                .setId("10")
-                .setName("The Pragmatic Programmer")
-                .setDescription("A guide to pragmatic software development techniques")
-                .setAuthor("Andrew Hunt")
-                .setPublisher("Addison-Wesley")
-                .setCategory("Programming")
-                .setType("Technical")
-                .build();
-
-        List<Book> books = List.of(book1, book2, book3, book4, book5, book6, book7, book8, book9, book10);
+        System.out.println(ArithmeticUtil.maxRecGen(3, 5, 1, 2,-10));
+        System.out.println(ArithmeticUtil.maxRecGen(alice, bob, charlie, diana, evan));
+        System.out.println(ArithmeticUtil.<Student>maxRecGen((s1, s2) -> {
+            return s2.getFirstName().compareTo(s1.getFirstName());
+        }, alice, bob, charlie, diana, evan));
 
 
-        Stream<Object> empty = Stream.empty();
-
-        books.stream()
-                .parallel()
-                .peek(System.out::println)
-                .filter(s -> !s.getAuthor().equals("Andrew Hunt"));
+        System.out.println(ArithmeticUtil.max(3, 5, 1, 2,-10));
+        System.out.println(ArithmeticUtil.maxRec(3, 5, 1, 2,-10));
+        System.out.println(ArithmeticUtil.maxRec(3));
 
 
+        System.out.println(StringUtil.reverseString("Hello"));
+        System.out.println(StringUtil.reverseStringRec("Hello"));
+        System.out.println(StringUtil.reverseString("World!"));
+        System.out.println(StringUtil.reverseStringRec("World!"));
+
+//        Student alice = new Student("Alice", "Johnson", LocalDateTime.of(2000, 5, 15, 0, 0), 3.8);
+//        Student bob = new Student("Bob", "Smith", LocalDateTime.of(2001, 8, 20, 0, 0), 3.6);
+//        Student charlie = new Student("Charlie", "Brown", LocalDateTime.of(2002, 12, 10, 0, 0), 3.9);
+//        Student diana = new Student("Diana", "Williams", LocalDateTime.of(1999, 2, 28, 0, 0), 3.7);
+//        Student evan = new Student("Evan", "Davis", LocalDateTime.of(2003, 11, 5, 0, 0), 4.0);
+//
+//        Map<String, Student> studentsMap = new HashMap<>();
+//        Set<String> strings = studentsMap.keySet();
+//        for (String key: studentsMap.keySet()) {
+//            Student student = studentsMap.get(key);
+//        }
+//
+//        Set<Student> javaStudents = new HashSet<>();
+//        javaStudents.add(alice);
+//        javaStudents.add(bob);
+//        javaStudents.add(charlie);
+//
+//        Set<Student> frontEndStudents = new LinkedHashSet<>();
+//        frontEndStudents.add(evan);
+//        frontEndStudents.add(alice);
+//        frontEndStudents.add(diana);
+//
+//        Set<Student> javaAndFrontEndStudents = new LinkedHashSet<>();
+//        javaAndFrontEndStudents.addAll(javaStudents);
+//        javaAndFrontEndStudents.addAll(frontEndStudents);
+//
+//
+//        Set<Student> studentsOfBoth = new TreeSet<>(javaStudents);
+//        studentsOfBoth.retainAll(frontEndStudents);
+//
+//        Queue<Student> queue = new PriorityQueue<>((s1, s2) -> {
+//            return s1.getFirstName().compareTo(s2.getFirstName());
+//        }) ;
+//
+//
+//        queue.add(alice);
+//        queue.add(bob);
+//        queue.add(charlie);
+//        queue.add(diana);
+//        queue.add(evan);
+//
+//        for (Student student : queue) {
+//            System.out.println(student);
+//        }
+//
+//        Deque<Student> deque = new LinkedList<>(); // Double-ended queue ; deck
+//        deque.addFirst(alice);
+//        deque.addLast(alice); // add
+//        Student student = deque.removeFirst();
 
 
-        boolean allMatch = books.stream()
-                .allMatch(b -> b.getName().length() > 5);
-
-        boolean programmingPresent = books.
-                stream()
-                .anyMatch(b -> b.getCategory().equals("Programming"));
-
-        Optional<Book> max = books
-                .stream()
-                .max((b1, b2) -> b1.getCategory().compareTo(b2.getCategory()));
-
-        Optional<Book> book31 = Optional.of(book3);
-
-        Optional<Book> any = books
-                .stream().findFirst();
-
-        if (max.isPresent()) {
-            Book book = max.get();
-        }
-
-        Book book = max.orElseGet(Book::new);
-        max.orElseThrow(() -> new RuntimeException("Book not found"));
+        System.out.println();
 
 
-        Map<String, List<Book>> collect = books.stream()
-                .peek(System.out::println)
-                .filter(s -> !s.getAuthor().equals("Andrew Hunt"))
-                .collect(Collectors.groupingBy(Book::getCategory)); // terminal
+        // Map<K, V>
 
-        List<Book> randomBooks = Stream
-                .generate(Book::new)
-                .peek(b -> {
-                    b.setAuthor(Math.random() + "");
-                    b.setCategory(Math.random() + "");
-                    b.setCategory(Math.random() + "");
-                    b.setDescription(Math.random() + "");
-                })
-                .peek(System.out::println)
-                .limit(100)
-                .toList();
 
-        List<Double> randomNums = Stream
-                .generate(() -> Math.random() * 100)
-                .limit(100)
-                .toList();
+//        Func funcName = () -> {
+//            System.out.println("Hello from func");
+//        };
+//
+//        Supplier<String> strSupplier = Application::getSomeStr;
+//        strSupplier = new Supplier<String>() {
+//            @Override
+//            public String get() {
+//                return "";
+//            }
+//        };
+//
+//        var srtGetterSetter = new GetterSetter<String>() {
+//            private String value;
+//
+//            @Override
+//            public String get() {
+//                return value;
+//            }
+//
+//            @Override
+//            public void set(String s) {
+//                this.value = s;
+//            }
+//
+//            public void printValue() {
+//                System.out.println(value);
+//            }
+//        };
+//
+//        srtGetterSetter.printValue();
+//
+//        Class<? extends GetterSetter<String>> aClass = srtGetterSetter.getClass();
+//        String simpleName = aClass.getSimpleName();
+//
+//
+//        int random1 = (int) (Math.random() * 100); // 0 ... 1.0 * 100
+//        double random2 = Math.random();
+//        double random3 = Math.random();
+//        double random4 = Math.random();
+//
+//        funcName.foo();
+
+//        Supplier<Double> supplier = new Supplier<Double>() {
+//
+//            @Override
+//            public Double get() {
+//                return Math.random() * 100;
+//            }
+//        };
+//
+//
+//        Book book1 = new Book.Builder()
+//                .setId("1")
+//                .setName("Effective Java")
+//                .setDescription("A comprehensive guide to best practices in Java")
+//                .setAuthor("Joshua Bloch")
+//                .setPublisher("Addison-Wesley")
+//                .setCategory("Programming")
+//                .setType("Technical")
+//                .build();
+//
+//        Book book2 = new Book.Builder()
+//                .setId("2")
+//                .setName("Clean Code")
+//                .setDescription("A Handbook of Agile Software Craftsmanship")
+//                .setAuthor("Robert C. Martin")
+//                .setPublisher("Prentice Hall")
+//                .setCategory("Programming")
+//                .setType("Technical")
+//                .build();
+//
+//        Book book3 = new Book.Builder()
+//                .setId("3")
+//                .setName("Java: The Complete Reference")
+//                .setDescription("A comprehensive reference to the Java programming language")
+//                .setAuthor("Herbert Schildt")
+//                .setPublisher("McGraw-Hill Education")
+//                .setCategory("Programming")
+//                .setType("Reference")
+//                .build();
+//
+//        Book book4 = new Book.Builder()
+//                .setId("4")
+//                .setName("Introduction to Algorithms")
+//                .setDescription("The standard text for algorithms and data structures")
+//                .setAuthor("Thomas H. Cormen")
+//                .setPublisher("MIT Press")
+//                .setCategory("Computer Science")
+//                .setType("Textbook")
+//                .build();
+//
+//        Book book5 = new Book.Builder()
+//                .setId("5")
+//                .setName("Design Patterns: Elements of Reusable Object-Oriented Software")
+//                .setDescription("A classic guide to design patterns in software engineering")
+//                .setAuthor("Erich Gamma")
+//                .setPublisher("Addison-Wesley")
+//                .setCategory("Programming")
+//                .setType("Technical")
+//                .build();
+//
+//        Book book6 = new Book.Builder()
+//                .setId("6")
+//                .setName("Java Concurrency in Practice")
+//                .setDescription("A deep dive into concurrency and multithreading in Java")
+//                .setAuthor("Brian Goetz")
+//                .setPublisher("Addison-Wesley")
+//                .setCategory("Programming")
+//                .setType("Technical")
+//                .build();
+//
+//        Book book7 = new Book.Builder()
+//                .setId("7")
+//                .setName("Refactoring: Improving the Design of Existing Code")
+//                .setDescription("A guide to refactoring techniques and best practices")
+//                .setAuthor("Martin Fowler")
+//                .setPublisher("Addison-Wesley")
+//                .setCategory("Programming")
+//                .setType("Technical")
+//                .build();
+//
+//        Book book8 = new Book.Builder()
+//                .setId("8")
+//                .setName("Cracking the Coding Interview")
+//                .setDescription("A guide to acing technical interviews with coding questions and solutions")
+//                .setAuthor("Gayle Laakmann McDowell")
+//                .setPublisher("CareerCup")
+//                .setCategory("Interview Preparation")
+//                .setType("Practical")
+//                .build();
+//
+//        Book book9 = new Book.Builder()
+//                .setId("9")
+//                .setName("Head First Java")
+//                .setDescription("An engaging introduction to Java programming for beginners")
+//                .setAuthor("Kathy Sierra")
+//                .setPublisher("O'Reilly Media")
+//                .setCategory("Programming")
+//                .setType("Educational")
+//                .build();
+//
+//        Book book10 = new Book.Builder()
+//                .setId("10")
+//                .setName("The Pragmatic Programmer")
+//                .setDescription("A guide to pragmatic software development techniques")
+//                .setAuthor("Andrew Hunt")
+//                .setPublisher("Addison-Wesley")
+//                .setCategory("Programming")
+//                .setType("Technical")
+//                .build();
+//
+//        List<Book> books = List.of(book1, book2, book3, book4, book5, book6, book7, book8, book9, book10);
+//
+//
+//        Stream<Object> empty = Stream.empty();
+//
+//        books.stream()
+//                .parallel()
+//                .peek(System.out::println)
+//                .filter(s -> !s.getAuthor().equals("Andrew Hunt"));
+//
+//
+//
+//
+//        boolean allMatch = books.stream()
+//                .allMatch(b -> b.getName().length() > 5);
+//
+//        boolean programmingPresent = books.
+//                stream()
+//                .anyMatch(b -> b.getCategory().equals("Programming"));
+//
+//        Optional<Book> max = books
+//                .stream()
+//                .max((b1, b2) -> b1.getCategory().compareTo(b2.getCategory()));
+//
+//        Optional<Book> book31 = Optional.of(book3);
+//
+//        Optional<Book> any = books
+//                .stream().findFirst();
+//
+//        if (max.isPresent()) {
+//            Book book = max.get();
+//        }
+//
+//        Book book = max.orElseGet(Book::new);
+//        max.orElseThrow(() -> new RuntimeException("Book not found"));
+//
+//
+//        Map<String, List<Book>> collect = books.stream()
+//                .peek(System.out::println)
+//                .filter(s -> !s.getAuthor().equals("Andrew Hunt"))
+//                .collect(Collectors.groupingBy(Book::getCategory)); // terminal
+//
+//        books.stream()
+//                .peek(System.out::println)
+//                .filter(s -> !s.getAuthor().equals("Andrew Hunt"))
+//                .collect(Collectors.toMap(b -> b.getCategory(), b -> b));
+//
+//        List<Book> randomBooks = Stream
+//                .generate(Book::new)
+//                .peek(b -> {
+//                    b.setAuthor(Math.random() + "");
+//                    b.setCategory(Math.random() + "");
+//                    b.setCategory(Math.random() + "");
+//                    b.setDescription(Math.random() + "");
+//                })
+//                .peek(System.out::println)
+//                .limit(100)
+//                .toList();
+//
+//        List<Double> randomNums = Stream
+//                .generate(() -> Math.random() * 100)
+//                .limit(100)
+//                .toList();
 //
 //        books.stream()
 //                .collect(Collectors.toMap(
@@ -217,14 +324,14 @@ public class Application {
 //        helloAppender.append("World");
 
 
-        Student student1 = new Student("Alice", "Johnson", LocalDateTime.of(2000, 5, 15, 0, 0), 3.8);
-        Student student2 = new Student("Bob", "Smith", LocalDateTime.of(2001, 8, 20, 0, 0), 3.6);
-        Student student3 = new Student("Charlie", "Brown", LocalDateTime.of(2002, 12, 10, 0, 0), 3.9);
-        Student student4 = new Student("Diana", "Williams", LocalDateTime.of(1999, 2, 28, 0, 0), 3.7);
-        Student student5 = new Student("Evan", "Davis", LocalDateTime.of(2003, 11, 5, 0, 0), 4.0);
-
-        List<Student> studentList = List.of(student1, student2, student3, student4, student5);
-
+//        Student student1 = new Student("Alice", "Johnson", LocalDateTime.of(2000, 5, 15, 0, 0), 3.8);
+//        Student student2 = new Student("Bob", "Smith", LocalDateTime.of(2001, 8, 20, 0, 0), 3.6);
+//        Student student3 = new Student("Charlie", "Brown", LocalDateTime.of(2002, 12, 10, 0, 0), 3.9);
+//        Student student4 = new Student("Diana", "Williams", LocalDateTime.of(1999, 2, 28, 0, 0), 3.7);
+//        Student student5 = new Student("Evan", "Davis", LocalDateTime.of(2003, 11, 5, 0, 0), 4.0);
+//
+//        List<Student> studentList = List.of(student1, student2, student3, student4, student5);
+//
 
 //        Stream<Object> empty = Stream.empty();
 //        Stream<Student> studentStream = Stream.of(student1, student2, student3, student4, student5);
@@ -556,5 +663,15 @@ public class Application {
 //
 
         System.out.println();
+    }
+
+    private static int countSomething(Function<String, Integer> func, String s) {
+        return func.apply(s);
+    }
+
+    private static void printRandomNums(Supplier<Integer> supplier) {
+        for (int i = 0; i < 100; i++) {
+            System.out.println("Random number: " + supplier.get());
+        }
     }
 }

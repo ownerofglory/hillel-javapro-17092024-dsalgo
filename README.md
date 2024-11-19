@@ -7,8 +7,10 @@
 - Singly linked list
 - Hash map
 - Tree map
+- Set
 
 ## Other topics
 - Iterator pattern
 - Strategy pattern
 - Stream API
+- Algorithms
