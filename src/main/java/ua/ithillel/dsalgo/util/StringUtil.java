@@ -1,5 +1,7 @@
 package ua.ithillel.dsalgo.util;
 
+import java.util.Stack;
+
 public class StringUtil {
     // "Hello" -> "olleH"
     public static String reverseString(String str) {
@@ -37,5 +39,19 @@ public class StringUtil {
         // recursive case
         char lastChar = str.charAt(str.length() - 1);
         return lastChar + reverseString(str.substring(0, str.length() - 1));
+    }
+
+    public static String reverseStringStack(String str) {
+        Stack<Character> stack = new Stack<>(); // FILO, LIFO
+        for (Character c : str.toCharArray()) {
+            stack.push(c);
+        }
+
+        StringBuilder sb = new StringBuilder();
+        while (!stack.isEmpty()) {
+            sb.append(stack.pop());
+        }
+
+        return sb.toString();
     }
 }

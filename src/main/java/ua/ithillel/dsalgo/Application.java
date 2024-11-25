@@ -1,45 +1,145 @@
 package ua.ithillel.dsalgo;
 
+import ua.ithillel.dsalgo.tree.TreeNode;
+import ua.ithillel.dsalgo.util.*;
 
-import ua.ithillel.dsalgo.model.person.Student;
-import ua.ithillel.dsalgo.util.ArithmeticUtil;
-import ua.ithillel.dsalgo.util.StringUtil;
-
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+class User {
+    private String name;
+
+    public User(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+}
+
+class UserRepository {
+    private List<User> users;
+
+    public UserRepository(List<User> users) {
+        this.users = users;
+    }
+
+    public Optional<User> findUserByName(String name) {
+        // implement
+        Optional<User> first = users.stream()
+                .filter(u -> u.getName().equals(name))
+                .findFirst();
+
+        return first;
+    }
+
+
+}
 
 public class Application {
 
 
     public static void main(String[] args) {
-        Student alice = new Student("Alice", "Johnson", LocalDateTime.of(2000, 5, 15, 0, 0), 3.8);
-        Student bob = new Student("Bob", "Smith", LocalDateTime.of(2001, 8, 20, 0, 0), 3.6);
-        Student charlie = new Student("Charlie", "Brown", LocalDateTime.of(2002, 12, 10, 0, 0), 3.9);
-        Student diana = new Student("Diana", "Williams", LocalDateTime.of(1999, 2, 28, 0, 0), 3.7);
-        Student evan = new Student("Evan", "Davis", LocalDateTime.of(2003, 11, 5, 0, 0), 4.0);
+        UserRepository userRepository = new UserRepository(new ArrayList<>());
+        Optional<User> userById = userRepository.findUserByName("John");
+        if (userById.isPresent()) {
+            User user = userById.get();
+            String name = user.getName();
+        }
+
+        userById.orElseThrow(RuntimeException::new);
+        userById.orElse(new User("John"));
+        userById.or(() -> Optional.of(new User("default")));
 
 
-        System.out.println(ArithmeticUtil.maxRecGen(3, 5, 1, 2,-10));
-        System.out.println(ArithmeticUtil.maxRecGen(alice, bob, charlie, diana, evan));
-        System.out.println(ArithmeticUtil.<Student>maxRecGen((s1, s2) -> {
-            return s2.getFirstName().compareTo(s1.getFirstName());
-        }, alice, bob, charlie, diana, evan));
+
+        TreeNode<Character> a = new TreeNode<>('A');
+        TreeNode<Character> b = new TreeNode<>('B');
+        TreeNode<Character> c = new TreeNode<>('C');
+        TreeNode<Character> d = new TreeNode<>('D');
+        TreeNode<Character> e = new TreeNode<>('E');
+        TreeNode<Character> f = new TreeNode<>('F');
+
+        a.setLeft(b);
+        a.setRight(c);
+
+        b.setLeft(d);
+
+        c.setLeft(e);
+        c.setRight(f);
+
+        List<Character> characters = TreeUtil.depthFirstTraverse(a);
+        List<Character> charactersRec = TreeUtil.depthFirstTraverseRec(a);
+        List<Character> characters1 = TreeUtil.breadthFirstTraverse(a);
+
+//        new TreeMap<String, String>().put()
+
+        Enumeration<Character> enumeration = Collections.enumeration(new ArrayList<>(characters));
+        while (enumeration.hasMoreElements()) {
+            System.out.println(enumeration.nextElement());
+        }
+
+        for (Character character : a) {
+            System.out.println(character);
+        }
+
+        System.out.println();
+        System.out.println(characters);
+        System.out.println(charactersRec);
+        System.out.println(characters1);
+        System.out.println();
+
+        //        a
+        //    /       \
+        //   b          c
+        //  /       /      \
+        // d        e       f
 
 
-        System.out.println(ArithmeticUtil.max(3, 5, 1, 2,-10));
-        System.out.println(ArithmeticUtil.maxRec(3, 5, 1, 2,-10));
-        System.out.println(ArithmeticUtil.maxRec(3));
+//        SortUtil.printSleepSort(new int[] {1, 4, 2, 10, 8, 7, 5, 6});
 
 
-        System.out.println(StringUtil.reverseString("Hello"));
-        System.out.println(StringUtil.reverseStringRec("Hello"));
-        System.out.println(StringUtil.reverseString("World!"));
-        System.out.println(StringUtil.reverseStringRec("World!"));
+//        Student alice = new Student("Alice", "Johnson", LocalDateTime.of(2000, 5, 15, 0, 0), 3.8);
+//        Student bob = new Student("Bob", "Smith", LocalDateTime.of(2001, 8, 20, 0, 0), 3.6);
+//        Student charlie = new Student("Charlie", "Brown", LocalDateTime.of(2002, 12, 10, 0, 0), 3.9);
+//        Student diana = new Student("Diana", "Williams", LocalDateTime.of(1999, 2, 28, 0, 0), 3.7);
+//        Student evan = new Student("Evan", "Davis", LocalDateTime.of(2003, 11, 5, 0, 0), 4.0);
+//
+//        Student[] students = {alice, bob, charlie, diana, evan};
+////
+//        int studentIdx = SearchUtil.binarySearchGen((s1, s2) -> {
+//            return s1.getFirstName().compareTo(s2.getFirstName());
+//        }, students, diana, 0, students.length - 1);
+//
+//        int[] arrInt = {1, 3, 4, 6, 8, 10, 11};
+//        int i = SearchUtil.binarySearch(arrInt, 6, 0, arrInt.length - 1);
+//        int i2 = SearchUtil.binarySearch(arrInt, 10, 0, arrInt.length - 1);
+//        int i3 = SearchUtil.binarySearch(arrInt, 3, 0, arrInt.length - 1);
+//
+//
+//
+//        System.out.println(ArithmeticUtil.maxRecGen(3, 5, 1, 2,-10));
+//        System.out.println(ArithmeticUtil.maxRecGen(alice, bob, charlie, diana, evan));
+//        System.out.println(ArithmeticUtil.<Student>maxRecGen((s1, s2) -> {
+//            return s2.getFirstName().compareTo(s1.getFirstName());
+//        }, alice, bob, charlie, diana, evan));
+//
+//
+//        System.out.println(ArithmeticUtil.max(3, 5, 1, 2,-10));
+//        System.out.println(ArithmeticUtil.maxRec(3, 5, 1, 2,-10));
+//        System.out.println(ArithmeticUtil.maxRec(3));
+//
+//
+//        System.out.println(StringUtil.reverseString("Hello"));
+//        System.out.println(StringUtil.reverseStringRec("Hello"));
+//        System.out.println(StringUtil.reverseString("World!"));
+//        System.out.println(StringUtil.reverseStringRec("World!"));
 
 //        Student alice = new Student("Alice", "Johnson", LocalDateTime.of(2000, 5, 15, 0, 0), 3.8);
 //        Student bob = new Student("Bob", "Smith", LocalDateTime.of(2001, 8, 20, 0, 0), 3.6);
