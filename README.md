@@ -14,3 +14,4 @@
 - Strategy pattern
 - Stream API
 - Algorithms
+- Graphs and trees

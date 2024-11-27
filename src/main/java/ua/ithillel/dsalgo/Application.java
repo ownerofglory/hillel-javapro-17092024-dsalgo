@@ -7,55 +7,63 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-class User {
-    private String name;
-
-    public User(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-
-class UserRepository {
-    private List<User> users;
-
-    public UserRepository(List<User> users) {
-        this.users = users;
-    }
-
-    public Optional<User> findUserByName(String name) {
-        // implement
-        Optional<User> first = users.stream()
-                .filter(u -> u.getName().equals(name))
-                .findFirst();
-
-        return first;
-    }
-
-
-}
 
 public class Application {
 
 
     public static void main(String[] args) {
-        UserRepository userRepository = new UserRepository(new ArrayList<>());
-        Optional<User> userById = userRepository.findUserByName("John");
-        if (userById.isPresent()) {
-            User user = userById.get();
-            String name = user.getName();
-        }
+        Integer[][] undirectedGraph = new Integer[][]{
+                {0, 1},
+                {1, 4},
+                {1, 2},
+                {2, 5},
+                {4, 5},
+                {4, 3},
+                {5, 8},
+                {5, 6},
+                {6, 7},
+        };
 
-        userById.orElseThrow(RuntimeException::new);
-        userById.orElse(new User("John"));
-        userById.or(() -> Optional.of(new User("default")));
+        Map<Integer, List<Integer>> undirectedGrapMap = GraphUtil.edgeListToAdjacency(undirectedGraph);
+        if (undirectedGrapMap == null) {
+
+        }
+        System.out.println(undirectedGrapMap);
+
+        System.out.println(GraphUtil.depthFirstTraversal(undirectedGrapMap, 0));
+        System.out.println(GraphUtil.depthFirstTraversal(undirectedGrapMap, 8));
+        System.out.println(GraphUtil.depthFirstTraversal(undirectedGrapMap, 5));
+
+        System.out.println(GraphUtil.breadthFirstTraversal(undirectedGrapMap, 0));
+        System.out.println(GraphUtil.breadthFirstTraversal(undirectedGrapMap, 8));
+        System.out.println(GraphUtil.breadthFirstTraversal(undirectedGrapMap, 5));
+
+        Map<String, List<String>> graph = new HashMap<>();
+        graph.put("A", List.of("B", "D", "E"));
+        graph.put("B", List.of("C", "D"));
+        graph.put("C", List.of());
+        graph.put("D", List.of("A", "E", "C"));
+        graph.put("E", List.of());
+
+        System.out.println("Depth first");
+
+        System.out.println(GraphUtil.depthFirstTraversal(graph, "A"));
+        System.out.println(GraphUtil.depthFirstTraversal(graph, "B"));
+        System.out.println(GraphUtil.depthFirstTraversal(graph, "C"));
+        System.out.println(GraphUtil.depthFirstTraversal(graph, "D"));
+        System.out.println(GraphUtil.depthFirstTraversal(graph, "E"));
+
+        System.out.println("Breadth first");
+
+        System.out.println(GraphUtil.breadthFirstTraversal(graph, "A"));
+        System.out.println(GraphUtil.breadthFirstTraversal(graph, "B"));
+        System.out.println(GraphUtil.breadthFirstTraversal(graph, "C"));
+        System.out.println(GraphUtil.breadthFirstTraversal(graph, "D"));
+        System.out.println(GraphUtil.breadthFirstTraversal(graph, "E"));
+
+        System.out.println("A to C" + GraphUtil.breadthFirstSearch(graph, "A", "C"));
+        System.out.println("C to D" + GraphUtil.breadthFirstSearch(graph, "C", "D"));
+        System.out.println("B to E" + GraphUtil.breadthFirstSearch(graph, "B", "E"));
 
 
 
